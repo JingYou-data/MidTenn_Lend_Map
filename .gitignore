@@ -1,0 +1,15 @@
+.env
+__pycache__/
+*.pyc
+.DS_Store
+venv/
+.venv/
+raw_data/
+db/
+*.duckdb
+uv.lock
+logs/
+main.py
+.cache/
+.claude/
+.pytest_cache/
