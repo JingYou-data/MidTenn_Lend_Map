@@ -23,3 +23,4 @@ SELECT
   has_narrative                         AS has_narrative,
   CURRENT_TIMESTAMP                     AS ingested_at
 FROM read_json_auto('raw_data/cfpb/cfpb_complaints_*.json')
+WHERE YEAR(CAST(date_received AS TIMESTAMP)) >= 2020

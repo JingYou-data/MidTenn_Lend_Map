@@ -14,5 +14,7 @@ SELECT
   SUM(jobs_supported)                   AS total_jobs_supported
 FROM silver.sba_loans
 WHERE naics_code IS NOT NULL
+AND naics_description IS NOT NULL
+AND naics_description != ''
 GROUP BY project_county, naics_code, naics_description
 ORDER BY total_approved_amount DESC
