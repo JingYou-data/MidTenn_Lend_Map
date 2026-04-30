@@ -15,3 +15,4 @@ SELECT
   CAST(total_workers AS INTEGER)            AS total_workers,
   CURRENT_TIMESTAMP                         AS ingested_at
 FROM read_json_auto('raw_data/census/census_acs5_*.json')
+WHERE year >= 2019

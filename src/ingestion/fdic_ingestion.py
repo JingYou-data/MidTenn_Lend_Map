@@ -5,7 +5,11 @@ from pathlib import Path
 
 BASE_URL = "https://banks.data.fdic.gov/api"
 
-TARGET_COUNTIES = ["Davidson", "Williamson", "Rutherford", "Montgomery"]
+TARGET_COUNTIES = [
+    "Davidson", "Williamson", "Rutherford", "Montgomery",
+    "Wilson", "Sumner", "Maury", "Putnam",
+    "Dickson", "Robertson", "Bedford", "Coffee",
+]
 
 INSTITUTION_FIELDS = [
     "NAME", "CITY", "STNAME", "COUNTY", "ASSET", "DEP", "NETINC",

@@ -3,7 +3,11 @@ import json
 from datetime import datetime
 from pathlib import Path
 
-TARGET_COUNTIES = ["DAVIDSON", "WILLIAMSON", "RUTHERFORD", "MONTGOMERY"]
+TARGET_COUNTIES = [
+    "DAVIDSON", "WILLIAMSON", "RUTHERFORD", "MONTGOMERY",
+    "WILSON", "SUMNER", "MAURY", "PUTNAM",
+    "DICKSON", "ROBERTSON", "BEDFORD", "COFFEE",
+]
 
 FILES = {
     "7a_2010_2019": "raw_data/sba/foia-7a-fy2010-fy2019-as-of-251231.csv",

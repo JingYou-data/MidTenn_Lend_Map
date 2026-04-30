@@ -10,7 +10,6 @@ WITH raw AS (
 
 unpivoted AS (
   SELECT 'FEDFUNDS'     AS series_id, 'federal_funds_rate'         AS series_label, unnest(FEDFUNDS.observations)     AS obs FROM raw UNION ALL
-  SELECT 'DPRIME'       AS series_id, 'bank_prime_loan_rate'        AS series_label, unnest(DPRIME.observations)       AS obs FROM raw UNION ALL
   SELECT 'MORTGAGE30US' AS series_id, 'mortgage_rate_30yr'          AS series_label, unnest(MORTGAGE30US.observations) AS obs FROM raw UNION ALL
   SELECT 'TNUR'         AS series_id, 'tennessee_unemployment_rate' AS series_label, unnest(TNUR.observations)         AS obs FROM raw UNION ALL
   SELECT 'TNRGSP'       AS series_id, 'tennessee_real_gdp'          AS series_label, unnest(TNRGSP.observations)       AS obs FROM raw UNION ALL
@@ -25,4 +24,4 @@ SELECT
   TRY_CAST(obs.value AS DOUBLE) AS value,
   CURRENT_TIMESTAMP             AS ingested_at
 FROM unpivoted
-WHERE obs.date >= '2019-01-01'
+WHERE obs.date >= '2020-01-01'

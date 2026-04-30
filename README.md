@@ -18,6 +18,10 @@ Data sources include:
 
 The result: a continuously updated platform that turns open government data into a competitive intelligence tool for lending teams.
 
+## Architecture
+
+![MidTenn Lend Map Architecture](docs/architecture.svg)
+
 ## System Architecture
 
 | Technology | Purpose/Role |
@@ -104,19 +108,41 @@ MidTenn-Lend-Map/
 ├── docker-compose.yml
 ├── pyproject.toml
 ├── README.md
+├── docs/
+│   └── architecture.svg  # Pipeline architecture diagram
+├── models/
+│   ├── bronze/           # Raw ingestion models (5 sources)
+│   ├── silver/           # Cleaned and deduplicated models
+│   └── gold/             # Business-ready analytics tables (10 models)
 ├── src/
 │   ├── ingestion/        # API ingestion scripts (FRED, SBA, CFPB, FDIC, Census)
-│   ├── models/           # SQLMesh Bronze / Silver / Gold models
 │   └── pipeline/         # Prefect flow definitions
-└── tests/                # pytest unit tests
+└── tests/                # pytest unit and data quality tests
 ```
 
 ## Data Coverage
 
-**Geographic Focus**: Middle Tennessee
-- Davidson County (Nashville)
-- Williamson County (Franklin, Brentwood)
-- Rutherford County (Murfreesboro)
-- Montgomery County (Clarksville)
+**Geographic Focus**: 12 Middle Tennessee Counties
+- Davidson (Nashville), Williamson (Franklin/Brentwood), Rutherford (Murfreesboro), Montgomery (Clarksville)
+- Wilson (Lebanon), Sumner (Gallatin), Maury (Columbia), Putnam (Cookeville)
+- Dickson, Robertson (Springfield), Bedford (Shelbyville), Coffee (Tullahoma)
 
-**Time Range**: 2019 – Present (5-year window capturing post-COVID growth surge)
+**Time Range**: 2019 – Present
+
+**Data Volume**:
+- 2,300+ SBA loan records
+- 52,000+ CFPB complaint records
+- 152 FDIC bank institutions
+- 60 Census ACS demographic snapshots (12 counties × 5 years)
+- 6 FRED macroeconomic series
+
+## Data Quality
+
+32 automated tests run with `uv run pytest`:
+
+- **Unit tests** — FRED and FDIC ingestion functions validated with mocks (no real API calls)
+- **Bronze layer** — All 5 source tables verified to have data after ingestion
+- **Silver layer** — No null approval dates, no duplicate complaint IDs, date range enforcement (2019+)
+- **Gold layer** — All 9 analytics tables verified, 12 counties present, all 6 FRED series loaded
+
+> Note: U.S. Census ACS 5-year data has a 2-year publication lag. The most recent available year is 2023. 2024–2025 population figures are estimated using historical county growth rates.

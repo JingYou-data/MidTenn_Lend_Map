@@ -17,6 +17,14 @@ COUNTIES = {
     "Williamson": "187",
     "Rutherford": "149",
     "Montgomery": "125",
+    "Wilson":     "189",
+    "Sumner":     "165",
+    "Maury":      "119",
+    "Putnam":     "141",
+    "Dickson":    "043",
+    "Robertson":  "147",
+    "Bedford":    "003",
+    "Coffee":     "031",
 }
 
 # ACS 5-year variables
