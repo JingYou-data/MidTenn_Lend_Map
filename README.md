@@ -31,6 +31,8 @@ The result: a continuously updated platform that turns open government data into
 | **MinIO** | Object storage (S3-compatible) for raw data lake |
 | **DuckDB** | High-performance analytical query engine |
 | **SQLMesh** | ELT transformations across Bronze / Silver / Gold layers |
+| **Snowflake** | Cloud data warehouse for Gold layer serving |
+| **Power BI** | Business intelligence dashboards and map visualizations |
 | **Metabase** | BI dashboards and interactive visualizations |
 | **Docker** | Containerization and local environment |
 | **pytest** | Unit testing framework |
