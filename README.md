@@ -40,12 +40,17 @@ The result: a continuously updated platform that turns open government data into
 ## Medallion Architecture
 
 ```
-Raw APIs → MinIO (raw lake) → DuckDB + SQLMesh (Bronze → Silver → Gold) → PostgreSQL → Metabase
+                                                      ┌→ PostgreSQL → Metabase   (ops/monitoring)
+Raw APIs → MinIO (raw lake) → DuckDB + SQLMesh        │
+                              (Bronze→Silver→Gold) ───┤
+                                                      └→ Snowflake  → Power BI   (business/executive)
 ```
 
 - **Bronze Layer**: Raw data ingested from APIs, stored as-is in DuckDB
 - **Silver Layer**: Cleaned, standardized, and deduplicated data
 - **Gold Layer**: Business-ready aggregations (loan volume by county, approval rates by industry, etc.)
+- **Path 1 — Metabase**: Gold tables exported to PostgreSQL, served via Metabase for operational monitoring
+- **Path 2 — Power BI**: Gold tables exported to Snowflake, connected to Power BI for executive dashboards and map visualizations
 
 ## Key Insights Delivered
 
