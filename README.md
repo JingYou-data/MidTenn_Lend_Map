@@ -48,7 +48,24 @@ Raw APIs → MinIO (raw lake) → DuckDB + SQLMesh        │
 
 - **Bronze Layer**: Raw data ingested from APIs, stored as-is in DuckDB
 - **Silver Layer**: Cleaned, standardized, and deduplicated data
-- **Gold Layer**: Business-ready aggregations (loan volume by county, approval rates by industry, etc.)
+- **Gold Layer**: 13 business-ready analytics tables exported to two serving paths:
+
+| Table | Description |
+|-------|-------------|
+| `loan_opportunity` | Lending demand score by county |
+| `industry_analysis` | SBA loan volume by industry and county |
+| `risk_signals` | Consumer complaint rates and dispute metrics |
+| `macro_trends` | FRED macroeconomic indicators over time |
+| `county_demographics` | Census income, poverty, and population data |
+| `competitive_whitespace` | Bank density gaps vs. population and income |
+| `customer_profile` | Borrower and loan size characteristics |
+| `loan_demand_trend` | Year-over-year SBA loan volume by county |
+| `loan_health` | Approval rates and job creation metrics |
+| `county_coordinates` | Geographic coordinates for map visualizations |
+| `rate_sensitivity` | Loan activity segmented by interest rate environment |
+| `quarterly_lending_pulse` | Quarterly loan volume vs. Fed Funds Rate |
+| `industry_yoy_growth` | Year-over-year industry loan growth with rankings |
+
 - **Path 1 — Metabase**: Gold tables exported to PostgreSQL, served via Metabase for operational monitoring
 - **Path 2 — Power BI**: Gold tables exported to Snowflake, connected to Power BI for executive dashboards and map visualizations
 
@@ -120,7 +137,7 @@ MidTenn-Lend-Map/
 ├── models/
 │   ├── bronze/           # Raw ingestion models (5 sources)
 │   ├── silver/           # Cleaned and deduplicated models
-│   └── gold/             # Business-ready analytics tables (10 models)
+│   └── gold/             # Business-ready analytics tables (13 models)
 ├── src/
 │   ├── ingestion/        # API ingestion scripts (FRED, SBA, CFPB, FDIC, Census)
 │   └── pipeline/         # Prefect flow definitions
@@ -150,6 +167,6 @@ MidTenn-Lend-Map/
 - **Unit tests** — FRED and FDIC ingestion functions validated with mocks (no real API calls)
 - **Bronze layer** — All 5 source tables verified to have data after ingestion
 - **Silver layer** — No null approval dates, no duplicate complaint IDs, date range enforcement (2019+)
-- **Gold layer** — All 9 analytics tables verified, 12 counties present, all 6 FRED series loaded
+- **Gold layer** — All 13 analytics tables verified, 12 counties present, all 6 FRED series loaded
 
 > Note: U.S. Census ACS 5-year data has a 2-year publication lag. The most recent available year is 2023. 2024–2025 population figures are estimated using historical county growth rates.
