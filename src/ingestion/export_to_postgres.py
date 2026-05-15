@@ -18,6 +18,10 @@ GOLD_TABLES = [
     "gold.customer_profile",
     "gold.loan_demand_trend",
     "gold.loan_health",
+    "gold.county_coordinates",
+    "gold.rate_sensitivity",
+    "gold.quarterly_lending_pulse",
+    "gold.industry_yoy_growth",
 ]
 
 
