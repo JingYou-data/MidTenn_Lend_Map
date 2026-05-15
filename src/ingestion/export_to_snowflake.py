@@ -1,8 +1,20 @@
+import ssl
 import duckdb
 import pandas as pd
-import snowflake.connector
 import os
 from dotenv import load_dotenv
+
+# Force Python stdlib SSL (no cert verification) before importing snowflake connector
+ssl._create_default_https_context = ssl._create_unverified_context
+
+import snowflake.connector
+
+# Extract pyopenssl from snowflake's vendored urllib3 so it uses stdlib ssl above
+try:
+    from snowflake.connector.vendored.urllib3.contrib import pyopenssl as _sf_pyopenssl
+    _sf_pyopenssl.extract_from_urllib3()
+except Exception:
+    pass
 
 load_dotenv()
 
@@ -18,6 +30,10 @@ GOLD_TABLES = [
     "gold.customer_profile",
     "gold.loan_demand_trend",
     "gold.loan_health",
+    "gold.county_coordinates",
+    "gold.rate_sensitivity",
+    "gold.quarterly_lending_pulse",
+    "gold.industry_yoy_growth",
 ]
 
 
@@ -47,6 +63,7 @@ def run():
         warehouse=os.environ["SNOWFLAKE_WAREHOUSE"],
         database=os.environ["SNOWFLAKE_DATABASE"],
         schema=os.environ["SNOWFLAKE_SCHEMA"],
+        insecure_mode=True,
     )
     cur = conn.cursor()
 
